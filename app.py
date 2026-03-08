@@ -12,11 +12,13 @@ from io import BytesIO
 st.set_page_config(page_title="Engineering College Predictor", layout="wide")
 
 # ---------------------------------------
-# PATHS
+# PATHS (GITHUB / STREAMLIT SAFE)
 # ---------------------------------------
 
-CET_FOLDER = r"E:\\New Volume\\Engineering Software\\college-predictor\\Xlsx Files"
-JEE_FILE = r"E:\\New Volume\\Engineering Software\\college-predictor\\Xlsx Files\\College_Cutoff_Cleaned.xlsx"
+BASE_DIR = os.path.dirname(__file__)
+
+CET_FOLDER = os.path.join(BASE_DIR, "Xlsx Files")
+JEE_FILE = os.path.join(BASE_DIR, "Xlsx Files", "College_Cutoff_Cleaned.xlsx")
 
 # ---------------------------------------
 # DISTRICT → UNIVERSITY MAP
@@ -76,7 +78,7 @@ def load_cet_data():
 
             if file.endswith(".xlsx"):
 
-                path = os.path.join(root,file)
+                path = os.path.join(root, file)
 
                 try:
                     df = pd.read_excel(path)
@@ -123,7 +125,6 @@ def detect_branch_column(df):
     possible = ["Branch","Course","Course Name","Branch Name","Program"]
 
     for col in possible:
-
         if col in df.columns:
             return col
 
